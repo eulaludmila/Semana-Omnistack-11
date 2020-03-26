@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, Fragment } from 'react';
+import Logon from './pages/Logon';
+import Routes from './routes'
+import './global.css'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          SEMANA OMNISTACK
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+	//useState retornar um array [valor, função]
+	let [contador, setContador] = useState(0);
+	//contador recebe 0 e o segundo parâmetro é uma função para alterar o estado do contador
+
+	function increment(){
+		setContador(contador + 1);
+	}
+
+	return (
+		<Fragment>
+			<Routes/>
+		</Fragment>
+	);
 }
 
 export default App;
