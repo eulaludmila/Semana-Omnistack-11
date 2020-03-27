@@ -2,6 +2,7 @@ const express = require('express') //importando o módulo express
 const routes = require("./routes");
 const app = express();
 const cors = require('cors');
+const { errors } = require("celebrate");
 
 app.use(cors({
     origin:'http://localhost:3000'
@@ -12,4 +13,7 @@ app.use(express.json());
 //O app utiliza as rotas
 app.use(routes);
 
-app.listen(3333); //Ouvindo na porta 3333"
+//evitar erros 500
+app.use(errors());
+
+module.exports = app;

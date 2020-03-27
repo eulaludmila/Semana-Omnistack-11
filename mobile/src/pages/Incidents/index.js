@@ -21,10 +21,12 @@ export default function Incidents() {
 
     async function loadIncident(){
 
+        //Usado para a quando a rolagem terminar, é feita uam verificação se é preciso fazer outra requisição
         if(loading){
             return;
         }
 
+        //verifica se o total de casos é do tamanho o array incidentes(que vem com uma paginação)
         if(total > 0 && incidents.length === total){
             return
         }
@@ -35,7 +37,11 @@ export default function Incidents() {
 
         setLoading(false);
         setPage(page + 1);
+
+        //recebe o array incidents + a respoat da requisição
         setIncidents([...incidents,...response.data]);
+
+        //pega o total de registros do cabecalho
         setTotal(response.headers['x-total-count']);
     }
 
@@ -56,7 +62,15 @@ export default function Incidents() {
                 Escolha um dos casos abaixo e salve o dia.
             </Text>
 
-            <FlatList style={styles.incidentList} keyExtractor={incident => String(incident.id)} showsVerticalScrollIndicator={false} 
+            {/* 
+            
+            * showsVerticalScrollIndicator - tirar scroll
+            * renderItem - renderizar o array incidents
+            * onEndReached - chamar a função quando chegar ao final da rolagem
+            * keyExtractor - chave de cada item
+            
+            */}
+            <FlatList style={styles.incidentList} keyExtractor={incident => String(incident.id)} showsVerticalScrollIndicator={true} 
             onEndReached={loadIncident} onEndReachedThreshold={0.2}
             data={incidents} renderItem={({item:incident}) => (
                 <View style={styles.incident}>
@@ -69,6 +83,12 @@ export default function Incidents() {
                     <Text style={styles.incidentProperty}>VALOR:</Text>
                     <Text style={styles.incidentValue}>{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(incident.value)}</Text>
 
+                    {/* 
+                    
+                    * Intl.NumberFormat = Uada para realizar a formatação para a moeda real
+                    * onPress - obrigatório
+
+                    */}
                     <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToDetail(incident)}>
                         <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
                         <Feather name="arrow-right" size={16} color="#E02041" />

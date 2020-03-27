@@ -5,16 +5,16 @@ module.exports = {
         const { page = 1 } = req.query;
         console.log(page);
 
-        const [count] = await connection('incidentes').count();
+        const [count] = await connection('incidentes').count(); //fazendo a contagem do total de registros
 
 
-        const incidentes = await connection('incidentes')
-        .join('ongs', 'ongs.id', "=", 'incidentes.ong_id')
-        .limit(5)
-        .offset((page - 1) * 5)
+        const incidentes = await connection('incidentes') //nome da tabela
+        .join('ongs', 'ongs.id', "=", 'incidentes.ong_id') //inner join
+        .limit(5)//limitar registros
+        .offset((page - 1) * 5) //paginação
         .select(["incidentes.*","ongs.name","ongs.email", "ongs.whatsapp", "ongs.city", "ongs.uf"]);
 
-        res.header('X-Total-Count', count['count(*)'])
+        res.header('X-Total-Count', count['count(*)']) // inserindo no cabecalho a quantidade de regitros
 
         return res.json(incidentes);
     },

@@ -8,9 +8,15 @@ import * as MailComposer from 'expo-mail-composer';
 
 export default function Detail() {
 
+    //navegação das telas
     const navigation = useNavigation();
+
+    //pegar parâmetro passado na rota
     const route = useRoute();
+
+    //pegando parâmtro com o nome que foi passado "incident"
     const incident = route.params.incident;
+
     const message = `Ola ${incident.name} estou entrando em contato devido ao caso publicado da cadelinha atropelada com o valor de${Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(incident.value)}`;
 
     function navigateBack(){
@@ -27,6 +33,8 @@ export default function Detail() {
     }
 
     function sendWhatsapp(){
+
+        //Abrindo uma url de whatsapp, onde no celular irá abrir o app na coversa desejada
         Linking.openURL(`whatsapp://send?phone=${incident.whatsapp}&text=${message}`);
     }
 
