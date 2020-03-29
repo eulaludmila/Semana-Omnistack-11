@@ -23,8 +23,8 @@ describe('ONG', () => {
     it('should be able to create a new ONG', async () => {
         const response = await request(app).post('/ongs').send({
             name: "EULA",
-            email: "eulaludimila12@gmail.com",
-            whatsapp: "5511974740514",
+            email: "eulaludmila@gmail.com",
+            whatsapp: "551100000000",
             city: "Itapevi",
             uf: "SP"
         });

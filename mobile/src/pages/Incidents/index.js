@@ -33,7 +33,7 @@ export default function Incidents() {
 
         setLoading(true);
 
-        const response = await api.get('http://192.168.1.43:3333/incidents', {params: {page}});
+        const response = await api.get('http://IP:3333/incidents', {params: {page}});
 
         setLoading(false);
         setPage(page + 1);
